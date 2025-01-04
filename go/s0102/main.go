@@ -15,8 +15,7 @@ import (
 )
 
 const (
-	Ready  = "READY"
-	Verify = "VERIFY"
+	Ready = "READY"
 )
 
 func main() {
