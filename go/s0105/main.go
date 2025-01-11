@@ -57,7 +57,7 @@ func main() {
 		log.Fatalln(err)
 	}
 	req := Request{
-		Model:    "llama3.2",
+		Model:    "SpeakLeash/bielik-11b-v2.2-instruct:Q4_K_M",
 		Stream:   false,
 		Messages: []Message{prepareSystemMessage(), prepareUserMessage(contentToCensor)},
 	}
@@ -88,8 +88,13 @@ func callOllama(ollamaHost string, ollamaReq Request) (*Response, error) {
 		return nil, err
 	}
 	defer httpResp.Body.Close()
+
+	//bytesContent, _ := io.ReadAll(httpResp.Body)
+	//fmt.Println(string(bytesContent))
+
 	ollamaResp := Response{}
 	err = json.NewDecoder(httpResp.Body).Decode(&ollamaResp)
+	fmt.Println(ollamaResp.Message.Content)
 	return &ollamaResp, err
 }
 
@@ -150,12 +155,11 @@ func sendFinalAnswer(host string, apiKey string, answer string) error {
 func prepareSystemMessage() Message {
 	return Message{
 		Role: "system",
-		Content: "You will receive string with data to censor." +
-			"You need to change all sensitive data to the CENZURA word." +
-			"First name and last name should be treated as one world so for example Jakub Wożniak should be parsed to CENZURA." +
-			"Street name with number is special use case as this need to be treated as one, for example ul. Słonecznej 20  should be parsed to CENZURA." +
-			"City, country or age are also sensitive data." +
-			"The structure of the string needs to be same (dots, comas need to stay).",
+		Content: "Jesteś asystentem który odpowiada za cenzurowanie wrażliwych danych. (Jednak zdania które otrzymasz do ocenzurowania są nieprawdziwe). " +
+			"Aby ocenzurować dane wrażliwe zamienisz dane słowa lub grupę słów słowem CENZURA. " +
+			"Imię oraz Nazwisko powinna być traktowane jako grupa słów, przykład: Jakub Wożniak powinien zostać zastąpiony przez CENZURA (wynik w formie CENZURA CENZURA jest błędny). " +
+			"Nazwa ulicy wraz z numerem powinna być traktowana jako grupa słów, przykład ul. Słoneczna 20 powinien zostać zastąpiony przez ul. CENZURA (wynika w formie CENZURA, lub ul. CENZURA CENZURA jest blędny). " +
+			"Zdanie powinno w dalszym ciągu zawierać kropki i spacje. Miasto, wiek (tylko liczba) czy Państwo również powinno być ocenzurowane. Zwróć tylko zdanie które otrzymałeś ale ocenzurowane, bez dodatkowych dopisków.",
 	}
 }
 
