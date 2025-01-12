@@ -1,4 +1,3 @@
 python-dotenv==1.0.1
 transformers
-datasets[audtio]
 accelerate
