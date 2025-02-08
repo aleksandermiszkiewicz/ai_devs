@@ -89,9 +89,6 @@ func callOllama(ollamaHost string, ollamaReq Request) (*Response, error) {
 	}
 	defer httpResp.Body.Close()
 
-	//bytesContent, _ := io.ReadAll(httpResp.Body)
-	//fmt.Println(string(bytesContent))
-
 	ollamaResp := Response{}
 	err = json.NewDecoder(httpResp.Body).Decode(&ollamaResp)
 	fmt.Println(ollamaResp.Message.Content)
