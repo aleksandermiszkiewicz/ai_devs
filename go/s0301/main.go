@@ -146,7 +146,7 @@ func prepareSystemMessage(factsFilesContent string) openai.ChatCompletionMessage
 			"During keywords generation take into account the name of the directory in which files are located as well as the file name." +
 			"While generating keywords for reports you need to take into account also the content of the Fact files which you can find below (the fact file has name like `f01.txt`, `f02.txt`... `f09.txt` etc." +
 			"You need bind the content of the report (if possible) with some fact file for example by person name / surname or location and then based on this generate keywords." +
-			"Answer need to be in Polish. The answer should contain only coma seperated denominators starting from small letter. For each report generate at least 20 keywords. Do not forget about keywords related to Barbara Zawadzka and teacher. The keywords should not contain additional signes like `-`, `_` etc. (only white space is allowed)." +
+			"Answer need to be in Polish. The answer should contain only coma seperated denominators starting from small letter. For each report generate at least 15 keywords. When any person is mentioned in the report the keywords for the given report also should include the profession as keyword. Do not forget about keywords related to Barbara Zawadzka . The keywords should not contain additional signs like `-`, `_` etc. (only white space is allowed)." +
 			"The content of the Fact files can be found below: \n" + factsFilesContent,
 		),
 	}

@@ -1,7 +1,15 @@
 .idea
 .env
+.DS_Store
+go/.DS_Store
 **/s0103/json.txt
 **/s0103/final.json
+**/s0205/downloaded_audio
+**/s0205/downloaded_images
+**/s0205/indexed.md
+**/s0402/data.jsonl
 pliki_z_fabryki
 images
 records
+lab_data
+lab_data/*
